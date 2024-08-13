@@ -6,10 +6,13 @@ namespace DefaultNamespace.PowerUps
     public class PowerUpTrigger : MonoBehaviour
     {
         [SerializeField] private PlayerMovment player;
-        public void OnTriggerEnter(Collider other)
+        public async void OnTriggerEnter(Collider other)
         {
             IPowerUp powerUp = other.GetComponent<IPowerUp>();
-            powerUp?.ApplyPowerUp(player);
+            if (powerUp != null)
+            {
+                await powerUp.ApplyPowerUp(player);
+            }
         }
     }   
 }

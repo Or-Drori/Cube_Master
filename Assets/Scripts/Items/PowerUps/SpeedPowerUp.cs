@@ -1,21 +1,25 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace DefaultNamespace.PowerUps
 {
     public class SpeedPowerUp : MonoBehaviour , IPowerUp
     {
-        public void ApplyPowerUp(PlayerMovment player)
+        public async UniTask ApplyPowerUp(PlayerMovment player)
         {
-            StartCoroutine(TimedPowerUp(3, player));
+            await TimedPowerUp(3, player);
         }
         
-        IEnumerator TimedPowerUp(float time, PlayerMovment player)
+        private async UniTask TimedPowerUp(float time, PlayerMovment player)
         {
             SpeedUp(player);
             UnityUtils.DisableMeshRenderersAndColliders(gameObject);
-            yield return new WaitForSeconds(time);
+            await UniTask.Delay(TimeSpan.FromSeconds(time));
             SpeedDown(player);
+            Destroy(gameObject);
         }
         private void SpeedUp(PlayerMovment player)
         {

@@ -1,22 +1,26 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace DefaultNamespace.PowerUps
 {
     public class JumpPowerUp : MonoBehaviour , IPowerUp
     {
-        public void ApplyPowerUp(PlayerMovment player)
+        public async UniTask ApplyPowerUp(PlayerMovment player)
         {
-            StartCoroutine(TimedPowerUp(3, player));
+            await TimedPowerUp(3, player);
         }
         
-        private IEnumerator TimedPowerUp(float time, PlayerMovment player)
+        private async UniTask TimedPowerUp(float time, PlayerMovment player)
         {
             JumpUp(player);
             UnityUtils.DisableMeshRenderersAndColliders(gameObject);
-            yield return new WaitForSeconds(time);
+            await UniTask.Delay(TimeSpan.FromSeconds(time));
             JumpDown(player);
+            Destroy(gameObject);
         }
         private void JumpUp(PlayerMovment player)
         {

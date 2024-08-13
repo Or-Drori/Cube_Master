@@ -1,9 +1,11 @@
-﻿using UnityEngine;
+﻿using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 namespace DefaultNamespace.PowerUps
 {
     public interface IPowerUp
     {
-        public void ApplyPowerUp(PlayerMovment player);
+        public UniTask ApplyPowerUp(PlayerMovment player);
     }
 }
