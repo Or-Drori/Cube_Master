@@ -4,7 +4,7 @@ using DefaultNamespace;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class Spawner : MonoBehaviour
+public class    Spawner : MonoBehaviour
 {
     [SerializeField] private int coinSpawnCount = 1; 
     [SerializeField] private int powerUpsSpawnCount = 1; 
